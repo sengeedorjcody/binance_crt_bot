@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --border-color: #1e293b;
+  --accent-green: #00ff88;
+  --accent-red: #ef4444;
+  --text-primary: #f8fafc;
+  --text-muted: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Terminal-style selection */
+::selection {
+  background: var(--accent-green);
+  color: var(--bg-primary);
+}
+
+/* Glow effects */
+.glow-green {
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.3), 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+.glow-red {
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3), 0 0 20px rgba(239, 68, 68, 0.1);
+}
+
+/* Grid background pattern */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(30, 41, 59, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Card styles */
+.card {
+  @apply bg-terminal-card border border-terminal-border rounded-xl p-6;
+  @apply transition-all duration-300;
+}
+
+.card:hover {
+  @apply border-terminal-accent/30;
+}
+
+/* Number animations */
+.number-up {
+  animation: numberUp 0.5s ease-out;
+}
+
+.number-down {
+  animation: numberDown 0.5s ease-out;
+}
+
+@keyframes numberUp {
+  0% { color: var(--accent-green); transform: scale(1.1); }
+  100% { color: inherit; transform: scale(1); }
+}
+
+@keyframes numberDown {
+  0% { color: var(--accent-red); transform: scale(1.1); }
+  100% { color: inherit; transform: scale(1); }
+}
+
+/* Pulse indicator */
+.pulse-dot {
+  @apply w-2 h-2 rounded-full bg-terminal-accent;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* Table styles */
+.data-table {
+  @apply w-full text-sm;
+}
+
+.data-table th {
+  @apply text-left text-terminal-muted font-medium py-3 px-4 border-b border-terminal-border;
+}
+
+.data-table td {
+  @apply py-3 px-4 border-b border-terminal-border/50 font-mono;
+}
+
+.data-table tr:hover td {
+  @apply bg-terminal-border/20;
+}
+
+/* Button styles */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-primary {
+  @apply bg-terminal-accent text-terminal-bg hover:bg-terminal-accent/90;
+  @apply hover:shadow-lg hover:shadow-terminal-accent/20;
+}
+
+.btn-danger {
+  @apply bg-terminal-danger text-white hover:bg-terminal-danger/90;
+}
+
+.btn-outline {
+  @apply border border-terminal-border text-terminal-muted hover:border-terminal-accent hover:text-terminal-accent;
+}
+
+/* Input styles */
+.input {
+  @apply w-full px-4 py-3 rounded-lg font-mono text-sm;
+  @apply bg-terminal-bg border border-terminal-border;
+  @apply focus:outline-none focus:border-terminal-accent focus:ring-1 focus:ring-terminal-accent/30;
+  @apply placeholder:text-terminal-muted/50;
+}
+
+/* Status badges */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-success {
+  @apply bg-terminal-accent/20 text-terminal-accent;
+}
+
+.badge-danger {
+  @apply bg-terminal-danger/20 text-terminal-danger;
+}
+
+.badge-warning {
+  @apply bg-terminal-warning/20 text-terminal-warning;
+}
+
+.badge-muted {
+  @apply bg-terminal-muted/20 text-terminal-muted;
+}
+
+/* React Dev Inspector Styles */
+[data-elements-highlight] {
+  outline: 2px solid #00ff88 !important;
+  outline-offset: 2px;
+  background: rgba(0, 255, 136, 0.1) !important;
+}
+
+/* Inspector overlay */
+#elements-overlay-box {
+  background: rgba(0, 255, 136, 0.1) !important;
+  border: 2px solid #00ff88 !important;
+}
+
+/* Inspector tooltip */
+#inspector-tooltip {
+  background: #0f172a !important;
+  border: 1px solid #00ff88 !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 12px !important;
+  color: #fff !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+#inspector-tooltip .component-name {
+  color: #00ff88 !important;
+  font-weight: 600 !important;
+}
+
+#inspector-tooltip .file-path {
+  color: #94a3b8 !important;
+  font-size: 11px !important;
+}
